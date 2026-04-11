@@ -1,0 +1,36 @@
+apiVersion: ai.sap.com/v1alpha1
+kind: ServingTemplate
+metadata:
+  name: transaction-analyzer-prediction
+  labels:
+    scenarios.ai.sap.com/id: "transaction-analyzer"
+    executables.ai.sap.com/id: "transaction-analyzer-serving"
+    ai.sap.com/version: "1.0.0"
+  annotations:
+    executables.ai.sap.com/name: "transaction-analyzer-prediction"
+    scenarios.ai.sap.com/name: "Transaction Analyzer Prediction"
+    executables.ai.sap.com/description: "Serve tax classification model"
+spec:
+  inputs:
+    artifacts:
+      - name: trainedmodels
+  template:
+    apiVersion: serving.kserve.io/v1beta1
+    kind: InferenceService
+    metadata:
+      name: transaction-analyzer-prediction
+      annotations: |
+        autoscaling.knative.dev/metric: concurrency
+        autoscaling.knative.dev/target: "1"
+        autoscaling.knative.dev/targetBurstCapacity: "0"
+    spec: |
+      predictor:
+        containers:
+          - name: kserve-container
+            image: docker.io/rahulcruze786/prediction-service:v1.0
+            ports:
+              - containerPort: 8080
+                protocol: TCP
+            env:
+              - name: MODEL_DIR
+                value: /app/models

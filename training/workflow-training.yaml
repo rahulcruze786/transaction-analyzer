@@ -29,3 +29,30 @@ spec:
             env:
               - name: MODEL_DIR
                 value: /app/models
+              - name: AWS_ACCESS_KEY_ID
+                valueFrom:
+                  secretKeyRef:
+                    name: s3-transaction-analyzer   # ✅ new secret name
+                    key: accessKeyId
+              - name: AWS_SECRET_ACCESS_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: s3-transaction-analyzer   # ✅ new secret name
+                    key: secretAccessKey
+              - name: AWS_DEFAULT_REGION
+                valueFrom:
+                  secretKeyRef:
+                    name: s3-transaction-analyzer
+                    key: region
+              - name: S3_BUCKET
+                valueFrom:
+                  secretKeyRef:
+                    name: s3-transaction-analyzer
+                    key: bucket
+              - name: S3_ENDPOINT
+                valueFrom:
+                  secretKeyRef:
+                    name: s3-transaction-analyzer
+                    key: endpoint
+              - name: S3_PATH_PREFIX
+                value: "ai/transaction-analyzer"

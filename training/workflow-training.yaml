@@ -1,8 +1,7 @@
-
 apiVersion: ai.sap.com/v1alpha1
 kind: WorkflowTemplate
 metadata:
-  name: transaction-analyzer-training
+  name: transaction-analyzer-training        # ✅ name must NOT be empty
   labels:
     scenarios.ai.sap.com/id: "transaction-analyzer"
     executables.ai.sap.com/id: "transaction-analyzer-training"
@@ -24,7 +23,7 @@ spec:
           - name: text_column
             default: "TEXT(S4Journal)"
           - name: target_column
-            default: "Category for tax purpose"
+            default: "taxcategory"
           - name: seasonal_words
             default: "mbfc,cbp,rcls"
       inputs:

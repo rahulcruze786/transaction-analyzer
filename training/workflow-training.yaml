@@ -1,7 +1,7 @@
 apiVersion: ai.sap.com/v1alpha1
 kind: WorkflowTemplate
 metadata:
-  name: transaction-analyzer-training        # ✅ name must NOT be empty
+  name: transaction-analyzer-training
   labels:
     scenarios.ai.sap.com/id: "transaction-analyzer"
     executables.ai.sap.com/id: "transaction-analyzer-training"

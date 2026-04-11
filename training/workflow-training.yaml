@@ -6,6 +6,7 @@ metadata:
     scenarios.ai.sap.com/id: "transaction-analyzer"
     executables.ai.sap.com/id: "transaction-analyzer-training"
     ai.sap.com/version: "1.0.0"
+    ai.sap.com/resourceGroup: "default"
   annotations:
     executables.ai.sap.com/name: "transaction-analyzer-training"
     scenarios.ai.sap.com/name: "Transaction Analyzer Training"

@@ -32,12 +32,12 @@ spec:
               - name: AWS_ACCESS_KEY_ID
                 valueFrom:
                   secretKeyRef:
-                    name: s3-transaction-analyzer   # ✅ new secret name
+                    name: s3-transaction-analyzer
                     key: accessKeyId
               - name: AWS_SECRET_ACCESS_KEY
                 valueFrom:
                   secretKeyRef:
-                    name: s3-transaction-analyzer   # ✅ new secret name
+                    name: s3-transaction-analyzer
                     key: secretAccessKey
               - name: AWS_DEFAULT_REGION
                 valueFrom:

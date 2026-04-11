@@ -6,18 +6,18 @@ metadata:
     scenarios.ai.sap.com/id: "transaction-analyzer"
     executables.ai.sap.com/id: "transaction-analyzer-training"
     ai.sap.com/version: "1.0.0"
-    ai.sap.com/resourceGroup: "default"
   annotations:
     executables.ai.sap.com/name: "transaction-analyzer-training"
     scenarios.ai.sap.com/name: "Transaction Analyzer Training"
     executables.ai.sap.com/description: "Train tax classification model"
 spec:
+  entrypoint: training-pipeline
   templates:
     - name: training-pipeline
       metadata:
         labels:
           ai.sap.com/resourcePlan: starter
-      arguments:
+      inputs:
         parameters:
           - name: market
             default: "Hong Kong"
@@ -27,7 +27,6 @@ spec:
             default: "taxcategory"
           - name: seasonal_words
             default: "mbfc,cbp,rcls"
-      inputs:
         artifacts: []
       outputs:
         artifacts:

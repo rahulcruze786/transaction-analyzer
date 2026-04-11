@@ -1,5 +1,5 @@
 apiVersion: ai.sap.com/v1alpha1
-kind: WorkflowTemplate
+kind: ServingTemplate
 metadata:
   name: transaction-analyzer-training
   labels:
@@ -8,48 +8,24 @@ metadata:
     ai.sap.com/version: "1.0.0"
   annotations:
     executables.ai.sap.com/name: "transaction-analyzer-training"
-    scenarios.ai.sap.com/name: "Transaction Analyzer Training"
-    executables.ai.sap.com/description: "Train tax classification model"
 spec:
-  entrypoint: training-pipeline
-  templates:
-    - name: training-pipeline
-      metadata:
-        labels:
-          ai.sap.com/resourcePlan: starter
-      inputs:
-        parameters:
-          - name: market
-            default: "Hong Kong"
-          - name: text_column
-            default: "TEXT(S4Journal)"
-          - name: target_column
-            default: "taxcategory"
-          - name: seasonal_words
-            default: "mbfc,cbp,rcls"
-        artifacts: []
-      outputs:
-        artifacts:
-          - name: trainedmodels
-            globalName: trainedmodels
-            path: /app/models
-            managed: "true"
-      container:
-        image: docker.io/rahulcruze786/training-service:v1.0
-        imagePullPolicy: Always
-        env:
-          - name: MODEL_DIR
-            value: /app/models
-        command: [python]
-        args:
-          - -c
-          - |
-            import requests, json
-            payload = {
-              "market":         "{{inputs.parameters.market}}",
-              "text_column":    "{{inputs.parameters.text_column}}",
-              "target_column":  "{{inputs.parameters.target_column}}",
-              "seasonal_words": "{{inputs.parameters.seasonal_words}}"
-            }
-            r = requests.post("http://localhost:8080/v1/train", json=payload)
-            print(r.json())
+  template:
+    apiVersion: serving.kserve.io/v1beta1
+    kind: InferenceService
+    metadata:
+      name: transaction-analyzer-training
+      annotations: |
+        autoscaling.knative.dev/metric: concurrency
+        autoscaling.knative.dev/target: "1"
+        autoscaling.knative.dev/targetBurstCapacity: "0"
+    spec: |
+      predictor:
+        containers:
+          - name: kserve-container
+            image: docker.io/rahulcruze786/training-service:v1.0
+            ports:
+              - containerPort: 8080
+                protocol: TCP
+            env:
+              - name: MODEL_DIR
+                value: /app/models

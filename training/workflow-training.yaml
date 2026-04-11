@@ -1,1 +1,56 @@
 
+apiVersion: ai.sap.com/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: transaction-analyzer-training
+  labels:
+    scenarios.ai.sap.com/id: "transaction-analyzer"
+    executables.ai.sap.com/id: "transaction-analyzer-training"
+    ai.sap.com/version: "1.0.0"
+  annotations:
+    executables.ai.sap.com/name: "transaction-analyzer-training"
+    scenarios.ai.sap.com/name: "Transaction Analyzer Training"
+    executables.ai.sap.com/description: "Train tax classification model"
+spec:
+  templates:
+    - name: training-pipeline
+      metadata:
+        labels:
+          ai.sap.com/resourcePlan: starter
+      arguments:
+        parameters:
+          - name: market
+            default: "Hong Kong"
+          - name: text_column
+            default: "TEXT(S4Journal)"
+          - name: target_column
+            default: "Category for tax purpose"
+          - name: seasonal_words
+            default: "mbfc,cbp,rcls"
+      inputs:
+        artifacts: []
+      outputs:
+        artifacts:
+          - name: trainedmodels
+            globalName: trainedmodels
+            path: /app/models
+            managed: "true"
+      container:
+        image: docker.io/rahulcruze786/training-service:v1.0
+        imagePullPolicy: Always
+        env:
+          - name: MODEL_DIR
+            value: /app/models
+        command: [python]
+        args:
+          - -c
+          - |
+            import requests, json
+            payload = {
+              "market":         "{{inputs.parameters.market}}",
+              "text_column":    "{{inputs.parameters.text_column}}",
+              "target_column":  "{{inputs.parameters.target_column}}",
+              "seasonal_words": "{{inputs.parameters.seasonal_words}}"
+            }
+            r = requests.post("http://localhost:8080/v1/train", json=payload)
+            print(r.json())

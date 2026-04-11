@@ -22,7 +22,7 @@ spec:
       predictor:
         containers:
           - name: kserve-container
-            image: docker.io/rahulcruze786/training-service:v1.1
+            image: docker.io/rahulcruze786/training-service:v1.2
             ports:
               - containerPort: 8080
                 protocol: TCP

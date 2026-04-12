@@ -30,14 +30,29 @@ spec:
               - name: MODEL_DIR
                 value: /app/models
               - name: AWS_ACCESS_KEY_ID
-                value: "AKIAQAB2LD3UZJWKC65B"
+                valueFrom:
+                  secretKeyRef:
+                    name: s3-transaction-analyzer
+                    key: accessKeyId
               - name: AWS_SECRET_ACCESS_KEY
-                value: "BrgYlQIP2/QadrHD/X/cQkDLycNUfd2J8RhAMc4Q"
+                valueFrom:
+                  secretKeyRef:
+                    name: s3-transaction-analyzer
+                    key: secretAccessKey
               - name: AWS_DEFAULT_REGION
-                value: "ap-southeast-1"
+                valueFrom:
+                  secretKeyRef:
+                    name: s3-transaction-analyzer
+                    key: region
               - name: S3_BUCKET
-                value: "hcp-44dcaebb-5af3-42b6-87b6-3731460a704f"
+                valueFrom:
+                  secretKeyRef:
+                    name: s3-transaction-analyzer
+                    key: bucket
               - name: S3_ENDPOINT
-                value: "s3-ap-southeast-1.amazonaws.com"
+                valueFrom:
+                  secretKeyRef:
+                    name: s3-transaction-analyzer
+                    key: endpoint
               - name: S3_PATH_PREFIX
                 value: "ai/transaction-analyzer"

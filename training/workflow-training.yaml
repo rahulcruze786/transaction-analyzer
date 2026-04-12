@@ -22,7 +22,7 @@ spec:
       predictor:
         containers:
           - name: kserve-container
-            image: docker.io/rahulcruze786/training-service:v1.2
+            image: docker.io/rahulcruze786/training-service:v1.6
             ports:
               - containerPort: 8080
                 protocol: TCP
@@ -33,12 +33,12 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: s3-transaction-analyzer
-                    key: accessKeyId
+                    key: access_key_id
               - name: AWS_SECRET_ACCESS_KEY
                 valueFrom:
                   secretKeyRef:
                     name: s3-transaction-analyzer
-                    key: secretAccessKey
+                    key: secret_access_key
               - name: AWS_DEFAULT_REGION
                 valueFrom:
                   secretKeyRef:
@@ -53,6 +53,6 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: s3-transaction-analyzer
-                    key: endpoint
+                    key: host
               - name: S3_PATH_PREFIX
                 value: "ai/transaction-analyzer"

@@ -30,9 +30,9 @@ spec:
               - name: MODEL_DIR
                 value: /app/models
               - name: AWS_ACCESS_KEY_ID
-                value: "..."
+                value: "AKIAQAB2LD3UZJWKC65B"
               - name: AWS_SECRET_ACCESS_KEY
-                value: "..."
+                value: "BrgYlQIP2/QadrHD/X/cQkDLycNUfd2J8RhAMc4Q"
               - name: AWS_DEFAULT_REGION
                 value: "ap-southeast-1"
               - name: S3_BUCKET

@@ -5,15 +5,10 @@ metadata:
   labels:
     scenarios.ai.sap.com/id: "transaction-analyzer"
     executables.ai.sap.com/id: "transaction-analyzer-serving"
-    ai.sap.com/version: "1.0.0"
+    ai.sap.com/version: "1.0.1"
   annotations:
     executables.ai.sap.com/name: "transaction-analyzer-prediction"
-    scenarios.ai.sap.com/name: "Transaction Analyzer Prediction"
-    executables.ai.sap.com/description: "Serve tax classification model"
 spec:
-  inputs:
-    artifacts:
-      - name: trainedmodels
   template:
     apiVersion: serving.kserve.io/v1beta1
     kind: InferenceService
@@ -34,3 +29,15 @@ spec:
             env:
               - name: MODEL_DIR
                 value: /app/models
+              - name: AWS_ACCESS_KEY_ID
+                value: "..."
+              - name: AWS_SECRET_ACCESS_KEY
+                value: "..."
+              - name: AWS_DEFAULT_REGION
+                value: "ap-southeast-1"
+              - name: S3_BUCKET
+                value: "hcp-44dcaebb-5af3-42b6-87b6-3731460a704f"
+              - name: S3_ENDPOINT
+                value: "s3-ap-southeast-1.amazonaws.com"
+              - name: S3_PATH_PREFIX
+                value: "ai/transaction-analyzer"

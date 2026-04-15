@@ -9,7 +9,7 @@ metadata:
     executables.ai.sap.com/name: "ml-classification-prediction"
   labels:
     scenarios.ai.sap.com/id: "ml-classification"
-    ai.sap.com/version: "1.0.0"
+    ai.sap.com/version: "1.0.1"
 spec:
   inputs:
     artifacts:

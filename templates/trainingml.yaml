@@ -26,7 +26,7 @@ spec:
         image: docker.io/rahulcruze786/ml_training_model:v1.5
         command: ["python"]
         args:
-          - "training/trainer.py"
+          - "trainer.py"
         env:
           - name: MODEL_OUTPUT_PATH
             value: "/tmp/models"

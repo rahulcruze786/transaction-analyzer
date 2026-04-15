@@ -23,17 +23,17 @@ spec:
         labels:
           ai.sap.com/resourcePlan: starter
       container:
-        image: docker.io/rahulcruze786/ml_training_model:v1.5
+        image: docker.io/rahulcruze786/ml_training_model:v1.6
         command: ["python"]
         args:
           - "trainer.py"
         env:
           - name: MODEL_DIR
-            value: "/app/models"
+            value: "/tmp/models"
       outputs:
         artifacts:
           - name: model-output
             globalName: multinomialNB
-            path: /app/models          # ← only output models here
+            path: /tmp/models          # ← only output models here
             archive:
               none: {}

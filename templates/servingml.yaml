@@ -1,12 +1,12 @@
 apiVersion: ai.sap.com/v1alpha1
 kind: ServingTemplate
 metadata:
-  name: transanalyzerpt-serving
+  name: ml-classification-prediction
   annotations:
-    scenarios.ai.sap.com/description: "transanalyzerpt Serving Template"
-    scenarios.ai.sap.com/name: "transanalyzerpt"
-    executables.ai.sap.com/description: "Serve transanalyzerpt model predictions"
-    executables.ai.sap.com/name: "transanalyzerpt-serving"
+    scenarios.ai.sap.com/description: "ml classification prediction Pipeline"
+    scenarios.ai.sap.com/name: "ml-classification"
+    executables.ai.sap.com/description: "ml classification training Pipeline"
+    executables.ai.sap.com/name: "ml classification model"
   labels:
     scenarios.ai.sap.com/id: "transanalyzerpt"
     ai.sap.com/version: "1.0.0"

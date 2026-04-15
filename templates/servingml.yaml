@@ -36,7 +36,7 @@ spec:
               - name: STORAGE_URI
                 value: "{{inputs.artifacts.multinomialNB}}"
               - name: MODEL_PATH
-                value: "/app/models"
+                value: "/tmp/models"
             resources:
               requests:
                 cpu: "0.5"

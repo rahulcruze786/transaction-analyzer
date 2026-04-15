@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:
-  name: transanalyzerpt-training
+  name: ml-classification-training
   annotations:
-    scenarios.ai.sap.com/description: "transanalyzerpt Training Pipeline"
-    scenarios.ai.sap.com/name: "transanalyzerpt"
-    executables.ai.sap.com/description: "Train the transanalyzerpt model"
-    executables.ai.sap.com/name: "transanalyzerpt-training"
+    scenarios.ai.sap.com/description: "ml classification training Pipeline"
+    scenarios.ai.sap.com/name: "ml-classification"
+    executables.ai.sap.com/description: "ml classification model"
+    executables.ai.sap.com/name: "ml-classification-training"
   labels:
-    scenarios.ai.sap.com/id: "transanalyzerpt"
+    scenarios.ai.sap.com/id: "ml-classification"
     ai.sap.com/version: "1.0.0"
 spec:
   entrypoint: training-pipeline
@@ -23,7 +23,7 @@ spec:
         labels:
           ai.sap.com/resourcePlan: starter
       container:
-        image: docker.io/jerushan/transanalyzerpt-train:latest
+        image: docker.io/rahulcruze786/ml_training_model:v1.4
         command: ["python"]
         args:
           - "training/trainer.py"
